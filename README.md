@@ -1,9 +1,6 @@
 #Gnome
 Embed content from popular providers into the templates using the Noembed gateway.
 
-Note: A bug in EE 3.3.0 is ignoring user settings for not rendering URL and email addresses as links. Until that is fixed, you'll need to apply a patch for this plugin to work.
-More here: https://support.ellislab.com/bugs/detail/21808/mailto-link-using-custom-text-field-that-is-an-email
-
 ##Installation
 
 1. Download and unzip the package directory into /system/user/addons/
