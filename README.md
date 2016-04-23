@@ -7,7 +7,7 @@ Embed content from popular providers into the templates using the Noembed gatewa
 2. Install the extension in CP > Add-ons Manager
 3. In the settings for the channel you'll be using, set the  "Render URLs and Email addresses as links?" preference to "No".
 
-Note: A bug in EE 3.3.0 is ignoring user settings for not rendering URL and email addresses as links. Until that is fixed, you'll need to apply [a patch to diable auto rendering of URLs as links](https://support.ellislab.com/bugs/detail/21808/mailto-link-using-custom-text-field-that-is-an-email).
+Note: A bug in EE 3.3.0 is ignoring user settings for not rendering URL and email addresses as links. Until that is fixed, you'll need to apply [a patch to disable auto rendering of URLs as links](https://support.ellislab.com/bugs/detail/21808/mailto-link-using-custom-text-field-that-is-an-email).
 
 
 ##Usage: Tag Pairs
