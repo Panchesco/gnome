@@ -10,12 +10,11 @@
 		public function html()
 		{
 
-			$show_errors		= ee()->TMPL->fetch_param('show_errors','no');
-			$url				= ee()->TMPL->fetch_param('url');
+			$show_errors	= ee()->TMPL->fetch_param('show_errors','no');
+			$url			= ee()->TMPL->fetch_param('url');
 			$nowrap			= strtolower(ee()->TMPL->fetch_param('nowrap','no'));
-			$maxwidth			= ee()->TMPL->fetch_param('maxwidth');
+			$maxwidth		= ee()->TMPL->fetch_param('maxwidth');
 			$maxheight		= ee()->TMPL->fetch_param('maxheight');
-			
 
 			if($url)
 			{
