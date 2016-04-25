@@ -9,7 +9,8 @@
 		function __construct()
 		{
 			// Set array of non-noembed provider names.
-			$this->unsupported = $this->unsupportedProviders();	
+			$this->unsupported = $this->unsupportedProviders();
+				
 		}
 			   
 		/**
@@ -54,6 +55,7 @@
              $regx['flickr'][]			= "https?:\/\/flic\.kr\/p\/[a-zA-Z0-9]+";
              $regx['gist'][]			= "https?:\/\/gist\.github\.com\/(?:[-0-9a-zA-Z]+\/)?([0-9a-fA-f]+)";
 			 $regx['imdb'][]			= "http:\/\/(?:www\.)?imdb\.com\/title\/(tt\d+)\/?";
+			 $regx['instagram'][]		= "https?:\/\/(?:www\.)?instagram\.com\/p\/.+";
 			 $regx['mixcloud'][]		= "https?:\/\/(?:www\.)?mixcloud\.com\/(.+)";
 			 	//$regx['slideshare'][]	= "http:\/\/www\.slideshare\.net\/.*\/.*";
 			 $regx['soundcloud'][]		= "https?:\/\/soundcloud.com\/.*\/.*";
@@ -84,7 +86,7 @@
 				   
 				   foreach($row as $pattern)
 				   {
-					   if(preg_match("|" . $pattern . "|",$url))
+					   if(preg_match("~" . $pattern . "~",$url))
 					   {
 						   return $key;
 					   }

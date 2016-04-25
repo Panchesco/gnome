@@ -26,8 +26,7 @@
 				 } else {
 					 $sources = array();
 				 }
-
-			 
+				 
 			 $noembed = new NoEmbed();
 			 $patterns = $noembed->source_patterns($sources);
 			 
