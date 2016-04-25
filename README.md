@@ -106,7 +106,6 @@ Render all supported URLs in a block of template text.
 
 | Parameter | Required? |	Description | Default | Options
 | --- | --- | --- | --- | --- |
-| url | Yes | URL of content to embed | |
 | sources	| Yes	| Pipe separated list of providers to render | |	See list of supported sources above 
 | nowrap | No	| Suppress provider wrapper? | no | no,yes
 | maxwidth | No	| Set preferred maximum width of returned embed |  | 
@@ -150,7 +149,6 @@ Availability may vary depending on provider.
 {grid_custom_field}
 <h2>{grid_custom_field:heading}</h2>
 	{exp:gnome:bulk 
-		url="{grid_custom_field:url}"
 		sources="flickr|soundcloud|youtube"
 		nowrap="on"
 		maxwidth="940"
