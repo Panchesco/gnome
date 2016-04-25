@@ -1,5 +1,4 @@
 <?php
-
 return array(
   'author'      => 'Richard Whitmer',
   'author_url'  => 'https://github.com/Panchesco',
