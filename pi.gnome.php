@@ -13,9 +13,9 @@
 		 */
 		 public function bulk()
 		 {
-			$this->nowrap	= strtolower(ee()->TMPL->fetch_param('nowrap','no'));
+			$this->nowrap		= strtolower(ee()->TMPL->fetch_param('nowrap','no'));
 			$this->maxwidth		= ee()->TMPL->fetch_param('maxwidth');
-			$this->maxheight		= ee()->TMPL->fetch_param('maxheight');
+			$this->maxheight	= ee()->TMPL->fetch_param('maxheight');
 			 
 			 $str = '';
 			 
@@ -27,21 +27,23 @@
 					 $sources = array();
 				 }
 
-			 $patterns = $this->source_patterns($sources);
+			 
+			 $noembed = new NoEmbed();
+			 $patterns = $noembed->source_patterns($sources);
+			 
 			 
 			 $lines = explode("\n",$tagdata);
 			 
 			 foreach($lines as $line)
 			 {
-				 foreach($patterns as $regex)
+				 foreach($patterns as $regx)
 				 {
-
-				 	
-
-					 $line = preg_replace_callback("~$regex~", function($matches){
+						$line = preg_replace_callback("|" . $regx . "|", function($matches){
 						 if(isset($matches[0]))
 						 {
+							 
 						 	return $this->fetch_response($matches[0],$this->nowrap,$this->maxwidth,$this->maxheight)->html;
+						 
 						 } else {
 							 return '';
 						 }
@@ -59,6 +61,8 @@
 		public function html()
 		{
 
+			$noembed = new NoEmbed();
+			
 			$show_errors	= ee()->TMPL->fetch_param('show_errors','no');
 			$url			= ee()->TMPL->fetch_param('url');
 			$nowrap			= strtolower(ee()->TMPL->fetch_param('nowrap','no'));
@@ -105,89 +109,14 @@
 		}
 		
 		//-----------------------------------------------------------------------------
-
-		/**
-		 * Return list of Noembed providers as tag pairs.
-		 * @return response
-		*/
-		public function providers() 
-		{
-			$providers = $this->providers_array();
-
-			foreach($providers as $key => $obj)
-			{
-					$patterns = array();
-					
-					foreach($obj->patterns as $index => $pattern)
-					{
-						
-						$patterns[] = array('regex'=>$pattern);
-					}
-					
-					$data[] = array('name' => $key, 'provider' => $obj->name,'patterns' => $patterns);
-
-			} 
-			
-			return ee()->TMPL->parse_variables(ee()->TMPL->tagdata,$data);
-			
-		}
-			
-		//-----------------------------------------------------------------------------
-
-		 private function source_patterns($sources)
-		 {
-			 $data		= array();
-			 $providers	= $this->providers_array();
-			 
-			 
-			 foreach($sources as $key)
-			 {
-				 if(array_key_exists($key, $providers))
-				 {
-					 if(isset($providers[$key]->patterns))
-					 {
-					 	foreach($providers[$key]->patterns as $pattern){
-						 	$data[] = $pattern;
-					 	};
-					 };
-				 }
-			 }
-			 
-			 return $data;
-		 
-		 }
-		 
-		 // ----------------------------------------------------------------------------- 
-		 
-		 private function providers_array()
-		 {
-			 $providers = array();
-			 
-			 $noembed = new Noembed();
-			 
-			 $objects = $noembed->providers();
-			 
-			 // populate associative array of providers.
-			 foreach($objects as $row)
-			 {
-				$key = str_replace(array(" ",".","?","!"), "-", strtolower($row->name));
-				
-				$providers[$key] = $row;
-			 }
-			 
-			 ksort($providers);
-			 
-			 return $providers;
-		 }
-		 
-		 // ----------------------------------------------------------------------------- 
 		 
 		 private function fetch_response($url,$nowrap=FALSE,$maxwidth=FALSE,$maxheight=FALSE)
 		 {
 			 	$noembed = new NoEmbed();
-				
+
 				return $noembed->response($url,$nowrap,$maxwidth,$maxheight);
 		 }
 		 
-		
+		 // ----------------------------------------------------------------------------- 
+		 
 	}
