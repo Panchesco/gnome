@@ -29,8 +29,46 @@
 		}
 		
 		//-----------------------------------------------------------------------------	
-		
-
+		  /**
+		   * Return an array of params for providers.
+		   * @param $provider string
+		   * @return array
+		   *
+		  */
+		  public function player_params($provider) 
+		  {
+		  	$provider = strtolower($provider);
+		  	
+		  	$player_params = array(
+			  	
+			  	'youtube'	=> array('autoplay',
+			  					'rel',
+			  					'showinfo',
+			  					'controls',
+			  					'modestbranding',
+			  					'color',
+			  					'cc_load_policy',
+			  					'disablekb',
+			  					'end',
+			  					'fs',
+			  					'iv_load_policy',
+			  					'loop',
+			  					'start',
+			  					),
+		  	);
+		  	
+		  	if(isset($player_params[$provider]))
+		  	{
+			  	return $player_params[$provider];
+		  	
+		  		} else {
+			  	
+			  	return array();
+		  	}
+		  	
+		  }
+				
+		  //-----------------------------------------------------------------------------
 		
 		/**
 		 * Get Noembed array of providers.
@@ -52,8 +90,8 @@
 		 {
 			 $regx['boingboing'][]		= "http:\/\/boingboing\.net\/\d{4}\/\d{2}\/\d{2}\/[^\/]+\.html";
 			 $regx['flickr'][]			= "https?:\/\/(?:www\.)?flickr\.com\/.*";
-             $regx['flickr'][]			= "https?:\/\/flic\.kr\/p\/[a-zA-Z0-9]+";
-             $regx['gist'][]			= "https?:\/\/gist\.github\.com\/(?:[-0-9a-zA-Z]+\/)?([0-9a-fA-f]+)";
+			 $regx['flickr'][]			= "https?:\/\/flic\.kr\/p\/[a-zA-Z0-9]+";
+			 $regx['gist'][]			= "https?:\/\/gist\.github\.com\/(?:[-0-9a-zA-Z]+\/)?([0-9a-fA-f]+)";
 			 $regx['imdb'][]			= "http:\/\/(?:www\.)?imdb\.com\/title\/(tt\d+)\/?";
 			 $regx['instagram'][]		= "https?:\/\/(?:www\.)?instagram\.com\/p\/.+";
 			 $regx['mixcloud'][]		= "https?:\/\/(?:www\.)?mixcloud\.com\/(.+)";
@@ -65,7 +103,7 @@
 			 $regx['wikipedia'][]	= "https?:\/\/[^\.]+\.wikipedia\.org\/wiki\/(?!Talk:)[^#]+(?:#(.+))?";
 			 $regx['wired'][]		= "https?:\/\/(?:www\.)?wired\.com\/.*";
 			 $regx['youtube'][]		= "https?:\/\/(?:[^\.]+\.)?youtube\.com\/watch\/?\?(?:.+&)?v=([^&]+)";
-             $regx['youtube'][]		= "https?:\/\/youtu\.be\/([a-zA-Z0-9_-]+)";
+			 $regx['youtube'][]		= "https?:\/\/youtu\.be\/([a-zA-Z0-9_-]+)";
              
 			 return $regx;
 		 }
@@ -114,7 +152,7 @@
 		   		
 		   		
 		   		$provider = $this->provider_key($url);
-		   		
+		   	
 		   		// Encode URL.
 		   		$url = rawurlencode($url);
 		   		
@@ -188,6 +226,7 @@
 		 }
 		 
 		 // ----------------------------------------------------------------------------- 
+		 
 
 		 /** 
 		  * Get an oEmbed response object for non-supported provider.
@@ -219,6 +258,7 @@
 			  
 		  }
 		  
+
 		  // ----------------------------------------------------------------------------- 
 		  
 		  /**

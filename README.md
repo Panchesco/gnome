@@ -21,7 +21,28 @@ Embed content from popular providers into the templates using the Noembed gatewa
 2. Install the extension in CP > Add-ons Manager
 3. In the settings for the channel you'll be using, set the  "Render URLs and Email addresses as links?" preference to "No".
 
-Note: A bug in EE 3.3.0 is ignoring user settings for not rendering URL and email addresses as links. Until that is fixed, you'll need to apply [a patch to disable auto rendering of URLs as links](https://support.ellislab.com/bugs/detail/21808/mailto-link-using-custom-text-field-that-is-an-email).
+
+##Usage: Single Tags
+###{exp:gnome:youtube_player}
+Display a YouTube embed.
+
+####Parameters
+
+| Parameter | Required? |	Description | Default | Options
+| --- | --- | --- | --- | --- |
+| url | Yes | URL of content to embed | |
+| nowrap | No	| Suppress provider wrapper? | no | no,yes
+| maxwidth | No	| Set preferred maximum width of returned embed |  | 
+| maxheight | No	| Set preferred maximum height of returned embed |  | 
+|	autoplay	| No |	Automatically play the video? |	no	| no, yes	|
+|	rel	|	No | Show related videos at end of current video play?	| yes	| no, yes |
+|	showinfo	| No | Show video information like the tile and uploader information.	|	yes | no, yes |
+|	controls	| No | Display player controls? | yes | yes, no |
+|	modestbranding | No | Prevent YouTube logo in control bar | no	| no, yes	|
+|	color	| No | Change the color of the prograss bar | red, | red, white |
+|	start	| No | How many seconds in should the video begin? | 0 | 
+|	end	| No | How many seconds in should the video end? | 0 | 
+
 
 
 ##Usage: Tag Pairs
@@ -124,6 +145,8 @@ Wrap a custom field containing multiple URLs in the bulk tag to render all the U
 ```
 
 ###Notes
+
+If you're outputting YouTube content, you can further customize the player returned by `{gnome_html}` by adding YouTube specific parameters. See the `{exp:gnome:youtube_player}` single tag parameters for a list of what is available.
 
 This plugin makes use of the Noembed service, an effort to build consistency onto oEmbed APIs provided by many websites.
 More information about Noembed at [https://noembed.com/](https://noembed.com/)
