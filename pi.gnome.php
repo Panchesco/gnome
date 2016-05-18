@@ -1,7 +1,8 @@
 <?php
 	
 	use Panchesco\Addons\Gnome\Library\NoEmbed;
-	use Panchesco\Addons\Gnome\Library\YouTube;
+	use Panchesco\Addons\Gnome\Library\YouTubePlayer;
+	use Panchesco\Addons\Gnome\Library\VimeoPlayer;
 
 	class Gnome {
 		
@@ -220,8 +221,7 @@
 		*/
 		private function youtube_html($url='',$params,$width=false,$height=false,$extra=false) 
 		{
-			$youtube = new YouTube($url);
-			
+			$youtube = new YouTubePlayer($url);
 			
 			return $youtube->embed($params,$width,$height,$extra);
 			

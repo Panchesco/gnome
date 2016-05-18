@@ -1,31 +1,28 @@
 <?php
 
-// https://developers.google.com/youtube/player_parameters
+// https://developer.vimeo.com/player/embedding
 	
 	namespace Panchesco\Addons\Gnome\Library;
 
-	class YouTube {
+	class VimeoPlayer {
 		
 	
 	var $url;	
 	var $video_id;	
 	var $width	= false;
 	var $height	= false;
-	var $params	= array('autoplay' => 0,
-			  			'rel' => 1,
-			  			'showinfo' => 1,
-			  			'controls' => 1,
-			  			'modestbranding' => 0,
-			  			'color' => 'red',
-			  			'cc_load_policy' => 1,
-			  			'disablekb' => 0,
-			  			'end' => false,
-			  			'fs' => 1,
-			  			'iv_load_policy' => 1,
-			  			'loop' => 0,
-			  			'start' => 0,
-			  			);
-	var $endpoint		= 'https://www.youtube.com/';
+	var $params	= array('autopause'	=> 1,
+						'autoplay'	=> 0,
+						'badge'	=> 1,
+						'byline'	=> 1,
+						'color'	=> '#00adef',
+						'loop'	=> 0,
+						'player_id'	=> '',
+						'portrait'	=> 1,
+						'title'	=> 1
+						);
+	
+	var $endpoint		= '//player.vimeo.com/video/';
 	
 			/**
 			 * 
@@ -49,7 +46,7 @@
 			//-----------------------------------------------------------------------------
 		
 			/**
-			 * Return html for embedded YouTube player.
+			 * Return html for embedded Vimeo player.
 			 * @param $width integer,
 			 * @param $height integer
 			 * @param $params array
@@ -81,7 +78,7 @@
 			//-----------------------------------------------------------------------------	
 			
 			/**
-			 * Return string of youtube params from an array.
+			 * Return string of Vimeo params from an array.
 			 * @param $params array
 			 * @return string
 			 *
@@ -115,35 +112,7 @@
 			*/
 			public function video_id($url) 
 			{
-				$video_id = NULL;
-				
-				if(strpos($url, '//youtu.be/')>0)
-				{
-					$url		= str_replace('https','http',$url);
-					$url		= str_replace('http://youtu.be/','',$url);
-					$parse	= parse_url($url);
-					
-					if(isset($parse['path']))
-					{
-						$video_id = $parse['path'];
-					}
-
-				} else {
-
-					$parse	= parse_url($url);
-				
-					if(isset($parse['query']))
-					{
-						$parse = parse_str($parse['query'],$values);
-					
-						if(isset($values['v']))
-						{
-							$video_id =  $values['v'];
-						}
-					}
-				}
-				
-				return $video_id;
+				return preg_replace("/https?\/\/\:(www)?vimeo\.com\/","",$url);
 			}
 				
 			//-----------------------------------------------------------------------------
