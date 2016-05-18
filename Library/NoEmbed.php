@@ -100,7 +100,6 @@
 		 public function providers_array()
 		 {
 			 $regx['boingboing'][]		= "http:\/\/boingboing\.net\/\d{4}\/\d{2}\/\d{2}\/[^\/]+\.html";
-			 $regx['flickr'][]			= "https?:\/\/(?:www\.)?flickr\.com\/.*";
 			 $regx['flickr'][]			= "https?:\/\/flic\.kr\/p\/[a-zA-Z0-9]+";
 			 $regx['gist'][]			= "https?:\/\/gist\.github\.com\/(?:[-0-9a-zA-Z]+\/)?([0-9a-fA-f]+)";
 			 $regx['imdb'][]			= "http:\/\/(?:www\.)?imdb\.com\/title\/(tt\d+)\/?";
@@ -203,9 +202,16 @@
 		   			
 		   			$response = json_decode($response);
 		   			
+
 		   			// Adding a "slug" version of the provider name.
-		   			$response->provider_slug = strtolower($response->provider_name);
-		   			$response->provider_slug = preg_replace("/[^[:alnum:]]/","-",$response->provider_slug);
+		   			if(isset($response->provider_name))
+		   			{
+		   				$response->provider_slug = strtolower($response->provider_name);
+		   				$response->provider_slug = preg_replace("/[^[:alnum:]]/","-",$response->provider_slug);
+		   			} else {
+			   			$response->provider_slug = '';
+		   			}
+		   			
 		   			
 		   			return $response;
 		   			
