@@ -55,6 +55,17 @@
 			  					'loop',
 			  					'start',
 			  					),
+			  					
+			  	'vimeo'	=> array('autopause',
+						'autoplay',
+						'badge',
+						'byline',
+						'color',
+						'loop',
+						'player_id',
+						'portrait',
+						'title'
+						),
 		  	);
 		  	
 		  	if(isset($player_params[$provider]))
@@ -164,7 +175,7 @@
 		   		
 		   		if($maxwidth)
 		   		{
-		   			$url.= '&maxwidth=' . $maxwidth;
+		  			$url.= '&maxwidth=' . $maxwidth;
 		   		}
 		   		
 		   		if($maxheight)
@@ -190,7 +201,13 @@
 		   		if ( ! empty($response))
 		   		{
 		   			
-		   			return json_decode($response);
+		   			$response = json_decode($response);
+		   			
+		   			// Adding a "slug" version of the provider name.
+		   			$response->provider_slug = strtolower($response->provider_name);
+		   			$response->provider_slug = preg_replace("/[^[:alnum:]]/","-",$response->provider_slug);
+		   			
+		   			return $response;
 		   			
 		   			} else {
 		   				

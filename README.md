@@ -3,6 +3,7 @@ Embed content from popular providers into the templates using the Noembed gatewa
 
 ##Currently supported sources
 - BoingBoing
+- Codepen
 - Flickr
 - Gist
 - IMDB
@@ -43,6 +44,23 @@ Display a YouTube embed.
 |	start	| No | How many seconds in should the video begin? | 0 | 
 |	end	| No | How many seconds in should the video end? | 0 | 
 
+###{exp:gnome:vimeo_player}
+Display a Vimeo embed.
+
+####Parameters
+
+| Parameter | Required? |	Description | Default | Options
+| --- | --- | --- | --- | --- |
+| url | Yes | URL of content to embed | |
+| nowrap | No	| Suppress provider wrapper? | no | no,yes
+| maxwidth | No	| Set preferred maximum width of returned embed |  | 
+| maxheight | No	| Set preferred maximum height of returned embed |  | 
+|	autoplay	| No |	Automatically play the video? |	no	| no, yes	|
+|	color	| No | Hex for colors to use on player | #00adef | Any hex value (do not include the #) |
+|	loop	| No	| Play the video again when it reaches the end.	| no | no, yes	|
+|	player_id	| No	| A unique id for the player that<br>will be passed back with all Javascript API responses.	|  | 	|
+|	portrait| No	| Show the user’s portrait on the video.	|  yes | 	no, yes	|
+|	title| No	|  	Show the title on the video.	|  yes | 	no, yes	|
 
 
 ##Usage: Tag Pairs
@@ -69,6 +87,7 @@ Display provider embed html and standard properties such as title, url, provider
 |	{gnome_title}	|	Content title	|	Havana . baby you can drive my car series	|
 |	{gnome_url}	|	URL to original content	|	https://flickr.com/photos/zedzap/13342893375/ |
 |	{gnome_provider_name}	|	Content provider name	|	Flickr |
+|	{gnome_provider_slug}	| An alpha_dash version of the content provider name	| flickr	|
 
 
 ####Extra Variables 
@@ -147,6 +166,8 @@ Wrap a custom field containing multiple URLs in the bulk tag to render all the U
 ###Notes
 
 If you're outputting YouTube content, you can further customize the player returned by `{gnome_html}` by adding YouTube specific parameters. See the `{exp:gnome:youtube_player}` single tag parameters for a list of what is available.
+
+If you're outputting Vimeo content, you can further customize the player returned by `{gnome_html}` by adding Vimeo specific parameters. See the `{exp:gnome:vimeo_player}` single tag parameters for a list of what is available.
 
 This plugin makes use of the Noembed service, an effort to build consistency onto oEmbed APIs provided by many websites.
 More information about Noembed at [https://noembed.com/](https://noembed.com/)

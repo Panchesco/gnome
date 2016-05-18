@@ -22,7 +22,7 @@
 						'title'	=> 1
 						);
 	
-	var $endpoint		= '//player.vimeo.com/video/';
+	var $endpoint		= 'https://player.vimeo.com/video/';
 	
 			/**
 			 * 
@@ -65,13 +65,13 @@
 					$str.= ( $width !== false ) ? 'width="' . $width . '" ' : '';
 					$str.= ( $height !== false ) ? 'height="' . $height . '" ' : '';
 					$str.= 'type="text/html" frameborder="0" ';
-					$str.= 'src="' . $this->endpoint . 'embed/' . $this->video_id;
+					$str.= 'src="' . $this->endpoint . $this->video_id;
 					$str.= $this->param_string($params);
 					$str.= '"';
 					$str.= '>';
 					$str.= '</iframe>';
 				}
-					
+				
 				return $str;	
 			}
 				
@@ -96,7 +96,7 @@
 				}
 				
 				$str = trim($str,'&');
-				$str = htmlentities($str);
+				//$str = htmlentities($str);
 				
 				return ( !empty($str)) ? '?' . $str : '';
 				
@@ -112,7 +112,7 @@
 			*/
 			public function video_id($url) 
 			{
-				return preg_replace("/https?\/\/\:(www)?vimeo\.com\/","",$url);
+				return preg_replace("/[^[:digit:]]/","",$url);
 			}
 				
 			//-----------------------------------------------------------------------------

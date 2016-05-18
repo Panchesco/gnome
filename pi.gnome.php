@@ -57,8 +57,15 @@
 										$response->html = $this->youtube_player($response->url);
 									}
 								break;
+								
+								case 'vimeo':
+									if($this->nowrap != 'no')
+									{
+										$response->html = $this->vimeo_player($response->url);
+									}
+								break;
 							}
-							
+
 							return $response->html;
 						 
 						 } else {
@@ -136,7 +143,7 @@
 		//-----------------------------------------------------------------------------
 		
 		/**
-		 * Return YouTube player HTML
+		 * Return YouTube player iframe
 		 * @param $url mixed bool/string
 		 *
 		*/
@@ -180,6 +187,57 @@
 		}
 			
 		//-----------------------------------------------------------------------------
+		
+		
+		/**
+		 * Return Vimeo player iframe.
+		 * @param $url mixed bool/string
+		 *
+		*/
+		public function vimeo_player($url=false) 
+		{
+					
+					
+					// Find the URL;
+					if($url===false)
+					{
+						$url = ee()->TMPL->fetch_param('url');
+					}
+					
+					
+					$noembed = new NoEmbed();
+					
+					$provider = $noembed->provider_key($url);
+					
+					
+					// Check template for params.
+					
+					$width	= ee()->TMPL->fetch_param('maxwidth');
+					$height	= ee()->TMPL->fetch_param('maxheight');
+					$extra	= ee()->TMPL->fetch_param('extra');
+					
+					
+					// Get provider parameters so we can check the template for them.
+					$provider_params = $noembed->player_params('vimeo');
+					
+					
+					$params = array();
+					
+					
+					foreach($provider_params as $param)
+					{
+						$val = ee()->TMPL->fetch_param($param);
+						
+						if($val)
+						{
+							$params[$param] = $this->translate_param($provider,$val);
+						}
+					}
+					
+					return $this->vimeo_html($url,$params,$width,$height,$extra);
+		}
+			
+		//-----------------------------------------------------------------------------
 		 
 		 private function fetch_response($url,$nowrap=FALSE,$maxwidth=FALSE,$maxheight=FALSE)
 		 {
@@ -202,10 +260,10 @@
 			 	switch($provider)
 			 	{
 				 	
-				 	case 'youtube': 
+				 	default: 
 				 		
-				 		$param = str_ireplace(array('yes','y','on','true'), 1, $param);
-				 		$param = str_ireplace(array('no','n','off','false'), 0, $param);
+				 		$param = str_ireplace(array('yes','true'), 1, $param);
+				 		$param = str_ireplace(array('no','false'), 0, $param);
 				 		
 				 	break;
 			 	}
@@ -216,7 +274,7 @@
 		 // ----------------------------------------------------------------------------- 
 		 
 		/**
-		 * 
+		 * Return iframe player HTML specific to YouTube.
 		 *
 		*/
 		private function youtube_html($url='',$params,$width=false,$height=false,$extra=false) 
@@ -225,6 +283,19 @@
 			
 			return $youtube->embed($params,$width,$height,$extra);
 			
+		}
+			
+		//-----------------------------------------------------------------------------
+		
+		/**
+		 * Return iframe player HTML specific to Vimeo.
+		 *
+		*/
+		private function vimeo_html($url='',$params,$width=false,$height=false,$extra=false) 
+		{
+			$vimeo = new VimeoPlayer($url);
+			
+			return $vimeo->embed($params,$width,$height,$extra);
 		}
 			
 		//-----------------------------------------------------------------------------
